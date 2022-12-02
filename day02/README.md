@@ -3,8 +3,8 @@
 ## How to run locally
 Type for example:
 ```bash
-part=part1 ruby aoc.ps1
-part=part2 ruby aoc.ps1
+part=part1 ruby aoc.rb
+part=part2 ruby aoc.rb
 ```
 
 ## How to build and run with Docker
