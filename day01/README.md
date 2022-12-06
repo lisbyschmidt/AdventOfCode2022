@@ -11,6 +11,6 @@ part=part2 pwsh aoc.ps1
 Type for example:
 ```bash
 docker build -t day01 --platform=linux/x86-64 .
-docker run -e part=part1 day01
-docker run -e part=part2 day01
+docker run --rm -e part=part1 day01
+docker run --rm -e part=part2 day01
 ```

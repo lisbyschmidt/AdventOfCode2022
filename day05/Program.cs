@@ -23,8 +23,7 @@ var movesInput = input.Skip(iBlankLine + 1).Select(l =>
 foreach (var move in movesInput)
 {
     var moving = Enumerable.Range(0, move[0]).Select(_ => stacks[move[1] - 1].Pop());
-    if (part == "part2")
-        moving = moving.Reverse();
+    if (part == "part2") moving = moving.Reverse();
     foreach (var crate in moving)
         stacks[move[2] - 1].Push(crate);
 }

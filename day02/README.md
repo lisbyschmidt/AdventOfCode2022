@@ -11,6 +11,6 @@ part=part2 ruby aoc.rb
 Type for example:
 ```bash
 docker build -t day02 .
-docker run -e part=part1 day02
-docker run -e part=part2 day02
+docker run --rm -e part=part1 day02
+docker run --rm -e part=part2 day02
 ```
