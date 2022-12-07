@@ -4,7 +4,7 @@ COPY day07.csproj .
 COPY input.txt .
 COPY Program.cs .
 RUN apk add clang build-base zlib-dev
-RUN dotnet publish -c Release -o out -p:'PublishAot=true;StripSymbols=true' -r linux-musl-x64
+RUN dotnet publish -c Release -o out -p:'PublishAot=true;StripSymbols=true;InvariantGlobalization=true' -r linux-musl-x64
 
 FROM alpine:latest
 WORKDIR /app
