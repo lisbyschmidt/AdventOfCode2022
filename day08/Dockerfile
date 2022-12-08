@@ -1,17 +1,13 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-
-# Install NativeAOT build prerequisites
-RUN apt-get update && apt-get install -y --no-install-recommends \
-       clang \
-       zlib1g-dev
-
-WORKDIR /source
+FROM mcr.microsoft.com/dotnet/sdk:7.0-alpine AS build-env
+WORKDIR /app
 COPY day08.csproj .
 COPY input.txt .
 COPY Program.cs .
-RUN dotnet publish -c Release -o /app -p:'PublishAot=true'
+RUN apk add clang build-base zlib-dev
+RUN dotnet publish -c Release -o out -p:'PublishAot=true;InvariantGlobalization=true' -r linux-musl-x64
 
-FROM mcr.microsoft.com/dotnet/runtime-deps:7.0
+FROM alpine:latest
 WORKDIR /app
-COPY --from=build /app .
-ENTRYPOINT [ "/app/day08" ]
+COPY --from=build-env /app/out .
+RUN apk add libstdc++
+ENTRYPOINT ./day08
