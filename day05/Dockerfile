@@ -1,10 +1,17 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
-WORKDIR /app
-COPY * ./
-RUN dotnet publish -c Release -o out
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 
-FROM mcr.microsoft.com/dotnet/runtime:7.0
-WORKDIR /app
-COPY --from=build-env /app/out .
+# Install NativeAOT build prerequisites
+RUN apt-get update && apt-get install -y --no-install-recommends \
+       clang \
+       zlib1g-dev
+
+WORKDIR /source
+COPY day05.csproj .
 COPY input.txt .
-ENTRYPOINT [ "dotnet", "day05.dll" ]
+COPY Program.cs .
+RUN dotnet publish -c Release -o /app -p:'PublishAot=true'
+
+FROM mcr.microsoft.com/dotnet/runtime-deps:7.0
+WORKDIR /app
+COPY --from=build /app .
+ENTRYPOINT [ "/app/day05" ]
