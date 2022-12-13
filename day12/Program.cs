@@ -1,8 +1,6 @@
-﻿var grid = new Grid();
-
-Console.WriteLine("C#\n" + Environment.GetEnvironmentVariable("part") switch {
-    "part1" => Dijkstra(grid, 'S', 'E', (from, to) => to.Elevation - from.Elevation <= 1),
-    "part2" => Dijkstra(grid, 'E', 'a', (from, to) => from.Elevation - to.Elevation <= 1),
+﻿Console.WriteLine("C#\n" + Environment.GetEnvironmentVariable("part") switch {
+    "part1" => Dijkstra(new Grid(), 'S', 'E', (from, to) => to.Elevation - from.Elevation <= 1),
+    "part2" => Dijkstra(new Grid(), 'E', 'a', (from, to) => from.Elevation - to.Elevation <= 1),
     _ => string.Empty
 });
 
